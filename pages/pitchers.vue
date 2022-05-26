@@ -1,12 +1,17 @@
-<template>
-  <main>
-    <ContentRenderer :value="data" />
-  </main>
-</template>
-
 <script setup>
-const { data } = await useAsyncData("pitchers", () =>
+const { data: pitchers } = await useAsyncData("pitchers", () =>
   queryContent("/pitchers").find()
 );
-console.log(data);
 </script>
+
+<template>
+  <main>
+    <div class="flex flex-col items-center">
+      <Card
+        :data="p"
+        v-for="p in pitchers"
+        :key="p._id"
+      ></Card>
+    </div>
+  </main>
+</template>
